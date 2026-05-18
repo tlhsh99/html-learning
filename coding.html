@@ -1,0 +1,902 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Learn HTML: Examples & Practice</title>
+  <style>
+    :root{
+      --bg:#0b1020;
+      --panel:#121a33;
+      --panel2:#0f1730;
+      --text:#e9eefc;
+      --muted:#aeb8e6;
+      --brand:#7c5cff;
+      --brand2:#35d0ff;
+      --ok:#22c55e;
+      --warn:#f59e0b;
+      --danger:#ef4444;
+      --border: rgba(255,255,255,.10);
+      --shadow: 0 10px 30px rgba(0,0,0,.35);
+      --mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+    }
+
+    *{ box-sizing: border-box; }
+    body{
+      margin:0;
+      font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      background: radial-gradient(1200px 600px at 15% 0%, rgba(124,92,255,.25), transparent 55%),
+                  radial-gradient(900px 500px at 90% 10%, rgba(53,208,255,.18), transparent 55%),
+                  var(--bg);
+      color:var(--text);
+      line-height:1.5;
+    }
+
+    a{ color: var(--brand2); text-decoration: none; }
+    a:hover{ text-decoration: underline; }
+
+    header{
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      backdrop-filter: blur(10px);
+      background: rgba(11,16,32,.7);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .container{
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 18px 16px;
+    }
+
+    .topbar{
+      display:flex;
+      align-items:center;
+      justify-content: space-between;
+      gap: 12px;
+    }
+
+    .logo{
+      display:flex;
+      align-items:center;
+      gap: 10px;
+      min-width: 220px;
+    }
+    .logoMark{
+      width: 38px;
+      height: 38px;
+      border-radius: 12px;
+      background: linear-gradient(135deg, var(--brand), var(--brand2));
+      box-shadow: 0 10px 24px rgba(124,92,255,.25);
+      position: relative;
+      flex: 0 0 auto;
+    }
+    .logoMark::after{
+      content:"";
+      position:absolute;
+      inset: 9px;
+      border: 1px solid rgba(255,255,255,.35);
+      border-radius: 8px;
+      transform: rotate(8deg);
+    }
+    .logoTitle{ font-weight: 800; letter-spacing: .2px; }
+    .logoSubtitle{ color: var(--muted); font-size: 12px; margin-top: 2px; }
+
+    nav{
+      display:flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+    }
+    nav a{
+      padding: 8px 10px;
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      color: var(--text);
+      font-size: 14px;
+      background: rgba(18,26,51,.4);
+    }
+    nav a:hover{ border-color: rgba(255,255,255,.25); }
+
+    .hero{
+      padding: 34px 0 18px;
+    }
+    .heroGrid{
+      display:grid;
+      grid-template-columns: 1.35fr .65fr;
+      gap: 16px;
+      align-items: start;
+    }
+    @media (max-width: 860px){
+      .heroGrid{ grid-template-columns: 1fr; }
+      .logo{ min-width: unset; }
+    }
+
+    .hero h1{
+      font-size: clamp(26px, 3.4vw, 42px);
+      line-height: 1.15;
+      margin: 0 0 10px;
+    }
+    .hero p{
+      margin: 0;
+      color: var(--muted);
+      font-size: 16px;
+      max-width: 64ch;
+    }
+
+    .ctaRow{
+      display:flex;
+      gap: 10px;
+      margin-top: 18px;
+      flex-wrap: wrap;
+    }
+    .btn{
+      display:inline-flex;
+      align-items:center;
+      gap: 10px;
+      padding: 11px 14px;
+      border-radius: 12px;
+      border: 1px solid var(--border);
+      background: rgba(18,26,51,.35);
+      color: var(--text);
+      font-weight: 650;
+      cursor: pointer;
+    }
+    .btnPrimary{
+      border-color: rgba(124,92,255,.55);
+      background: linear-gradient(135deg, rgba(124,92,255,.25), rgba(53,208,255,.14));
+      box-shadow: 0 14px 34px rgba(124,92,255,.12);
+    }
+    .btn:hover{ border-color: rgba(255,255,255,.25); }
+
+    .statPanel{
+      background: rgba(18,26,51,.45);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      box-shadow: var(--shadow);
+      padding: 14px;
+    }
+    .statPanel h3{ margin: 0 0 10px; font-size: 16px; }
+    .bullets{ margin: 0; padding-left: 18px; color: var(--muted); }
+    .bullets li{ margin: 8px 0; }
+
+    main{ padding: 10px 0 60px; }
+
+    section.block{
+      margin-top: 18px;
+      background: rgba(18,26,51,.40);
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      box-shadow: var(--shadow);
+      overflow: hidden;
+    }
+
+    .blockHeader{
+      display:flex;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: 10px;
+      padding: 18px 18px 12px;
+      border-bottom: 1px solid var(--border);
+      background: linear-gradient(180deg, rgba(255,255,255,.03), transparent);
+    }
+    .blockHeader h2{ margin: 0; font-size: 18px; }
+    .blockHeader .hint{ color: var(--muted); font-size: 13px; }
+
+    .blockBody{ padding: 16px 18px 18px; }
+
+    .grid2{
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+    }
+    @media (max-width: 900px){
+      .grid2{ grid-template-columns: 1fr; }
+    }
+
+    .exampleCard{
+      background: rgba(12,18,39,.35);
+      border: 1px solid rgba(255,255,255,.10);
+      border-radius: 16px;
+      padding: 14px;
+    }
+    .exampleCard h3{
+      margin: 0 0 6px;
+      font-size: 15px;
+    }
+    .exampleCard p{
+      margin: 0 0 12px;
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .codeWrap{
+      border-radius: 14px;
+      border: 1px solid rgba(255,255,255,.10);
+      background: rgba(9,13,28,.55);
+      overflow: hidden;
+    }
+
+    .codeTop{
+      display:flex;
+      align-items:center;
+      justify-content: space-between;
+      gap: 10px;
+      padding: 10px 12px;
+      border-bottom: 1px solid rgba(255,255,255,.08);
+      background: rgba(255,255,255,.02);
+    }
+
+    .codeMeta{
+      display:flex;
+      flex-direction: column;
+      gap: 2px;
+      min-width: 0;
+    }
+    .codeMeta .title{ font-weight: 700; font-size: 13px; }
+    .codeMeta .sub{ color: var(--muted); font-size: 12px; }
+
+    .copyBtn{
+      appearance: none;
+      border: 1px solid rgba(255,255,255,.14);
+      background: rgba(255,255,255,.04);
+      color: var(--text);
+      padding: 8px 10px;
+      border-radius: 10px;
+      cursor: pointer;
+      font-weight: 650;
+      font-size: 13px;
+      white-space: nowrap;
+    }
+    .copyBtn:hover{ border-color: rgba(255,255,255,.25); }
+
+    pre{
+      margin: 0;
+      padding: 12px;
+      overflow:auto;
+      font-family: var(--mono);
+      font-size: 13px;
+      color: #eaf0ff;
+    }
+    code{ font-family: var(--mono); }
+
+    .practiceList{
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+    }
+    @media (max-width: 900px){
+      .practiceList{ grid-template-columns: 1fr; }
+    }
+
+    .checkItem{
+      display:flex;
+      gap: 12px;
+      align-items:flex-start;
+      padding: 12px;
+      border-radius: 14px;
+      border: 1px solid rgba(255,255,255,.10);
+      background: rgba(12,18,39,.25);
+    }
+    .checkItem input{ margin-top: 3px; transform: scale(1.1); }
+    .checkItem .text{ flex: 1; }
+    .checkItem .title{ font-weight: 750; margin-bottom: 2px; }
+    .checkItem .desc{ color: var(--muted); font-size: 14px; }
+
+    footer{
+      color: var(--muted);
+      padding: 24px 0;
+      border-top: 1px solid var(--border);
+      margin-top: 26px;
+    }
+    .footRow{ display:flex; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
+    .pillRow{ display:flex; gap: 8px; flex-wrap: wrap; }
+    .pill{
+      padding: 8px 10px;
+      border: 1px solid rgba(255,255,255,.10);
+      background: rgba(18,26,51,.25);
+      border-radius: 999px;
+      font-size: 13px;
+    }
+
+    /* Toast */
+    .toast{
+      position: fixed;
+      left: 50%;
+      bottom: 18px;
+      transform: translateX(-50%);
+      background: rgba(0,0,0,.70);
+      color: #fff;
+      border: 1px solid rgba(255,255,255,.18);
+      padding: 10px 12px;
+      border-radius: 12px;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity .18s ease, transform .18s ease;
+      z-index: 50;
+      box-shadow: 0 12px 30px rgba(0,0,0,.4);
+      font-weight: 700;
+      font-size: 13px;
+    }
+    .toast.show{
+      opacity: 1;
+      transform: translateX(-50%) translateY(-4px);
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="container topbar">
+      <div class="logo" aria-label="Website title">
+        <div class="logoMark" aria-hidden="true"></div>
+        <div>
+          <div class="logoTitle">Learn HTML</div>
+          <div class="logoSubtitle">Examples • Practice • Copy-paste snippets</div>
+        </div>
+      </div>
+      <nav aria-label="Navigation">
+        <a href="#overview">Overview</a>
+        <a href="#examples">Examples</a>
+        <a href="#practice">Practice</a>
+        <a href="#resources">Resources</a>
+        <a href="#feedback">Feedback</a>
+      </nav>
+    </div>
+  </header>
+
+  <div class="container hero" id="overview">
+    <div class="heroGrid">
+      <div>
+        <h1>Build real HTML pages by learning tag-by-tag.</h1>
+        <p>
+          This single-page website gives you beginner-friendly HTML examples. Each example includes:
+          explanation + a copy button + a small “try it” prompt.
+        </p>
+        <div class="ctaRow">
+          <a class="btn btnPrimary" href="#examples" style="text-decoration:none;">
+            <span aria-hidden="true">▶</span> Start with Examples
+          </a>
+          <a class="btn" href="#practice" style="text-decoration:none;">
+            <span aria-hidden="true">✓</span> Do Practice Tasks
+          </a>
+        </div>
+      </div>
+      <aside class="statPanel" aria-label="How to use">
+        <h3>How to use this site</h3>
+        <ul class="bullets">
+          <li>Scroll to an example.</li>
+          <li>Click <b>Copy</b> to copy HTML code.</li>
+          <li>Paste into a file named <b>index.html</b> and open in your browser.</li>
+          <li>Modify what you copied (that’s how you learn fastest).</li>
+        </ul>
+      </aside>
+    </div>
+  </div>
+
+  <main class="container">
+    <section class="block" id="examples">
+      <div class="blockHeader">
+        <h2>HTML Examples</h2>
+        <div class="hint">Copy the code and open it in your browser.</div>
+      </div>
+      <div class="blockBody">
+        <div class="grid2">
+          <!-- 1 -->
+          <article class="exampleCard">
+            <h3>1) Basic HTML Page Structure</h3>
+            <p>The required tags to create a valid HTML document.</p>
+            <div class="codeWrap">
+              <div class="codeTop">
+                <div class="codeMeta">
+                  <div class="title">index.html</div>
+                  <div class="sub">doctype + html + head + body</div>
+                </div>
+                <button class="copyBtn" type="button" data-copy="code-1">Copy</button>
+              </div>
+              <pre><code id="code-1"><!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>My First Page</title>
+  </head>
+
+  <body>
+    <h1>Hello HTML!</h1>
+    <p>This is my first web page.</p>
+  </body>
+</html></code></pre>
+            </div>
+            <p><b>Try it:</b> Change the <code><title></code> and the text inside <code><h1></code>.</p>
+          </article>
+
+          <!-- 2 -->
+          <article class="exampleCard">
+            <h3>2) Headings + Paragraph</h3>
+            <p>Use headings for structure and paragraphs for content.</p>
+            <div class="codeWrap">
+              <div class="codeTop">
+                <div class="codeMeta">
+                  <div class="title">Headings</div>
+                  <div class="sub">h1..h3 + p</div>
+                </div>
+                <button class="copyBtn" type="button" data-copy="code-2">Copy</button>
+              </div>
+              <pre><code id="code-2"><h1>Main Title</h1>
+<p>This is a paragraph of text.</p>
+
+<h2>Section Title</h2>
+<p>Another paragraph. You can add multiple <b>bold</b> parts too.</p>
+
+<h3>Small Section</h3>
+<p>Use <em>emphasis</em> for important words.</p></code></pre>
+            </div>
+            <p><b>Try it:</b> Add one more heading and one more paragraph.</p>
+          </article>
+
+          <!-- 3 -->
+          <article class="exampleCard">
+            <h3>3) Links (Anchor Tag)</h3>
+            <p>Use <code><a></code> to link to other pages.</p>
+            <div class="codeWrap">
+              <div class="codeTop">
+                <div class="codeMeta">
+                  <div class="title">A link</div>
+                  <div class="sub">href + target</div>
+                </div>
+                <button class="copyBtn" type="button" data-copy="code-3">Copy</button>
+              </div>
+              <pre><code id="code-3"><p>
+  Visit MDN:
+  <a href="https://developer.mozilla.org/" target="_blank" rel="noreferrer">
+    developer.mozilla.org
+  </a>
+</p>
+
+<p>
+  Local link (same folder):
+  <a href="about.html">About page</a>
+</p></code></pre>
+            </div>
+            <p><b>Try it:</b> Create <code>about.html</code> and link to it.</p>
+          </article>
+
+          <!-- 4 -->
+          <article class="exampleCard">
+            <h3>4) Images</h3>
+            <p>Use <code><img></code> with <code>src</code> and <code>alt</code>.</p>
+            <div class="codeWrap">
+              <div class="codeTop">
+                <div class="codeMeta">
+                  <div class="title">img</div>
+                  <div class="sub">src + alt + width</div>
+                </div>
+                <button class="copyBtn" type="button" data-copy="code-4">Copy</button>
+              </div>
+              <pre><code id="code-4"><img
+  src="https://via.placeholder.com/600x240.png?text=Your+Image"
+  alt="A placeholder image"
+  width="600"
+/>
+
+<p>Add alt text so accessibility tools can describe the image.</p></code></pre>
+            </div>
+            <p><b>Try it:</b> Change the <code>alt</code> text to describe your own image.</p>
+          </article>
+
+          <!-- 5 -->
+          <article class="exampleCard">
+            <h3>5) Lists (ul / ol)</h3>
+            <p>Lists help organize items.</p>
+            <div class="codeWrap">
+              <div class="codeTop">
+                <div class="codeMeta">
+                  <div class="title">ul and ol</div>
+                  <div class="sub">unordered + ordered</div>
+                </div>
+                <button class="copyBtn" type="button" data-copy="code-5">Copy</button>
+              </div>
+              <pre><code id="code-5"><h3>Shopping list</h3>
+<ul>
+  <li>Milk</li>
+  <li>Eggs</li>
+  <li>Bread</li>
+</ul>
+
+<h3>Steps</h3>
+<ol>
+  <li>Open a text editor</li>
+  <li>Create index.html</li>
+  <li>Open in a browser</li>
+</ol></code></pre>
+            </div>
+            <p><b>Try it:</b> Add 2 more list items.</p>
+          </article>
+
+          <!-- 6 -->
+          <article class="exampleCard">
+            <h3>6) Tables</h3>
+            <p>Use <code><table></code>, <code><tr></code>, <code><th></code>, <code><td></code>.</p>
+            <div class="codeWrap">
+              <div class="codeTop">
+                <div class="codeMeta">
+                  <div class="title">Simple table</div>
+                  <div class="sub">table + rows + cells</div>
+                </div>
+                <button class="copyBtn" type="button" data-copy="code-6">Copy</button>
+              </div>
+              <pre><code id="code-6"><table>
+  <tr>
+    <th>Name</th>
+    <th>Age</th>
+  </tr>
+
+  <tr>
+    <td>Ravi</td>
+    <td>20</td>
+  </tr>
+
+  <tr>
+    <td>Sara</td>
+    <td>22</td>
+  </tr>
+</table></code></pre>
+            </div>
+            <p><b>Try it:</b> Add one more row and one more column.</p>
+          </article>
+
+          <!-- 7 -->
+          <article class="exampleCard">
+            <h3>7) Forms (input / textarea / button)</h3>
+            <p>Collect user input using a form.</p>
+            <div class="codeWrap">
+              <div class="codeTop">
+                <div class="codeMeta">
+                  <div class="title">Contact form</div>
+                  <div class="sub">label + input + textarea</div>
+                </div>
+                <button class="copyBtn" type="button" data-copy="code-7">Copy</button>
+              </div>
+              <pre><code id="code-7"><form>
+  <label>
+    Name:
+    <input type="text" name="name" placeholder="Your name" />
+  </label>
+
+  <label>
+    Email:
+    <input type="email" name="email" placeholder="you@example.com" />
+  </label>
+
+  <label>
+    Message:
+    <textarea name="message" rows="4" placeholder="Write your message..."></textarea>
+  </label>
+
+  <button type="submit">Send</button>
+</form></code></pre>
+            </div>
+            <p><b>Try it:</b> Add a <code><select></code> dropdown.</p>
+          </article>
+
+          <!-- 8 -->
+          <article class="exampleCard">
+            <h3>8) Semantic HTML</h3>
+            <p>Semantic tags make your page easier to understand.</p>
+            <div class="codeWrap">
+              <div class="codeTop">
+                <div class="codeMeta">
+                  <div class="title">header / main / section</div>
+                  <div class="sub">better structure</div>
+                </div>
+                <button class="copyBtn" type="button" data-copy="code-8">Copy</button>
+              </div>
+              <pre><code id="code-8"><header>
+  <h1>My Website</h1>
+  <p>A short tagline here.</p>
+</header>
+
+<main>
+  <section>
+    <h2>About</h2>
+    <p>This is the about section.</p>
+  </section>
+
+  <section>
+    <h2>Contact</h2>
+    <p>This is the contact section.</p>
+  </section>
+</main>
+
+<footer>
+  <p>© 2026 My Website</p>
+</footer></code></pre>
+            </div>
+            <p><b>Try it:</b> Add another <code><section></code> for “Services”.</p>
+          </article>
+
+          <!-- 9 -->
+          <article class="exampleCard">
+            <h3>9) HTML Media (audio / video)</h3>
+            <p>Use <code><video></code> and <code><audio></code> to embed media.</p>
+            <div class="codeWrap">
+              <div class="codeTop">
+                <div class="codeMeta">
+                  <div class="title">video + audio</div>
+                  <div class="sub">controls + src</div>
+                </div>
+                <button class="copyBtn" type="button" data-copy="code-9">Copy</button>
+              </div>
+              <pre><code id="code-9"><!-- Video (use your own mp4 file or a valid URL) -->
+<video controls width="520">
+  <source src="movie.mp4" type="video/mp4" />
+  Sorry, your browser does not support the video tag.
+</video>
+
+<!-- Audio -->
+<audio controls>
+  <source src="song.mp3" type="audio/mpeg" />
+  Sorry, your browser does not support the audio tag.
+</audio></code></pre>
+            </div>
+            <p><b>Try it:</b> Replace <code>movie.mp4</code> with a real file name you have.</p>
+          </article>
+
+          <!-- 10 -->
+          <article class="exampleCard" style="grid-column: 1 / -1;">
+            <h3>10) Put It Together: Mini “Profile” Page</h3>
+            <p>A full example combining multiple tags into one page.</p>
+            <div class="codeWrap">
+              <div class="codeTop">
+                <div class="codeMeta">
+                  <div class="title">Mini profile</div>
+                  <div class="sub">images + links + lists + form</div>
+                </div>
+                <button class="copyBtn" type="button" data-copy="code-10">Copy</button>
+              </div>
+              <pre><code id="code-10"><!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>My Profile</title>
+</head>
+<body>
+  <header>
+    <h1>Ravi Kumar</h1>
+    <p>Front-end learner</p>
+    <img src="https://via.placeholder.com/180" alt="Profile photo" />
+  </header>
+
+  <main>
+    <section>
+      <h2>About me</h2>
+      <p>I am learning HTML step by step.</p>
+    </section>
+
+    <section>
+      <h2>My links</h2>
+      <ul>
+        <li><a href="https://example.com">My Website</a></li>
+        <li><a href="https://github.com">GitHub</a></li>
+      </ul>
+    </section>
+
+    <section>
+      <h2>Contact</h2>
+      <form>
+        <label>
+          Email:
+          <input type="email" name="email" />
+        </label>
+        <button type="submit">Send</button>
+      </form>
+    </section>
+  </main>
+
+  <footer>
+    <p>© 2026 Ravi Kumar</p>
+  </footer>
+</body>
+</html></code></pre>
+            </div>
+            <p><b>Try it:</b> Change the name, add one more link, and edit the about text.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="block" id="practice">
+      <div class="blockHeader">
+        <h2>Practice (Checklist)</h2>
+        <div class="hint">Tick the tasks after you complete them.</div>
+      </div>
+      <div class="blockBody">
+        <div class="practiceList">
+          <label class="checkItem">
+            <input type="checkbox" />
+            <span class="text">
+              <div class="title">Create a new HTML file</div>
+              <div class="desc">Make <code>index.html</code> and add a title + an <code><h1></code> heading.</div>
+            </span>
+          </label>
+
+          <label class="checkItem">
+            <input type="checkbox" />
+            <span class="text">
+              <div class="title">Add a link</div>
+              <div class="desc">Create an anchor link to any website (open in a new tab).</div>
+            </span>
+          </label>
+
+          <label class="checkItem">
+            <input type="checkbox" />
+            <span class="text">
+              <div class="title">Add an image</div>
+              <div class="desc">Insert an <code><img></code> and write a correct <code>alt</code> description.</div>
+            </span>
+          </label>
+
+          <label class="checkItem">
+            <input type="checkbox" />
+            <span class="text">
+              <div class="title">Build a list</div>
+              <div class="desc">Create both a <code><ul></code> and an <code><ol></code> with at least 3 items.</div>
+            </span>
+          </label>
+
+          <label class="checkItem">
+            <input type="checkbox" />
+            <span class="text">
+              <div class="title">Make a table</div>
+              <div class="desc">Create a table with at least 2 columns and 2 rows.</div>
+            </span>
+          </label>
+
+          <label class="checkItem">
+            <input type="checkbox" />
+            <span class="text">
+              <div class="title">Create a form</div>
+              <div class="desc">Add an input, a textarea, and a submit button inside a <code><form></code>.</div>
+            </span>
+          </label>
+
+          <label class="checkItem" style="grid-column: 1 / -1;">
+            <input type="checkbox" />
+            <span class="text">
+              <div class="title">Challenge: one-page mini website</div>
+              <div class="desc">
+                Combine: header + main sections + footer. Add a link and one image.
+                Keep your content simple and readable.
+              </div>
+            </span>
+          </label>
+        </div>
+      </div>
+    </section>
+
+    <section class="block" id="resources">
+      <div class="blockHeader">
+        <h2>Resources</h2>
+        <div class="hint">Free learning references</div>
+      </div>
+      <div class="blockBody">
+        <div class="grid2">
+          <div class="exampleCard">
+            <h3>MDN Web Docs</h3>
+            <p>Most reliable reference for HTML tags, attributes, and examples.</p>
+            <p><a href="https://developer.mozilla.org/en-US/docs/Web/HTML" target="_blank" rel="noreferrer">https://developer.mozilla.org/en-US/docs/Web/HTML</a></p>
+          </div>
+          <div class="exampleCard">
+            <h3>W3Schools (beginner-friendly)</h3>
+            <p>Quick examples and exercises.</p>
+            <p><a href="https://www.w3schools.com/html/" target="_blank" rel="noreferrer">https://www.w3schools.com/html/</a></p>
+          </div>
+        </div>
+
+        <div class="exampleCard" style="margin-top: 14px;">
+          <h3>Publishing (to make it visible to everyone)</h3>
+          <p>
+            Easiest method: <b>GitHub Pages</b>.
+            Upload this <code>coding.html</code> file to a GitHub repository and enable Pages.
+          </p>
+          <p style="margin-bottom:0;">
+            Steps (simple): Create repo → upload file → Settings → Pages → choose “main branch / root” → Save.
+            Then open the provided URL.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section class="block" id="feedback">
+      <div class="blockHeader">
+        <h2>Feedback</h2>
+        <div class="hint">You can copy this idea to add a real message form later</div>
+      </div>
+      <div class="blockBody">
+        <div class="exampleCard">
+          <h3>How to improve this page</h3>
+          <p>
+            When you learn something new, add another example section (ex: <code><video></code> formats, <code><meta></code>,
+            <code><span></code>, <code><div></code>, accessibility).
+          </p>
+          <p>
+            If you want, you can also split examples into multiple HTML pages (e.g., <code>links.html</code>, <code>forms.html</code>)
+            and link them from the navigation.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <footer>
+      <div class="footRow">
+        <div>
+          <b>Learn HTML</b> — one-file guide for beginners.
+          <div style="margin-top:6px;">Tip: open devtools console if you experiment with JavaScript copy.</div>
+        </div>
+        <div class="pillRow" aria-label="Tech stack">
+          <span class="pill">HTML</span>
+          <span class="pill">CSS</span>
+          <span class="pill">JavaScript</span>
+          <span class="pill">Single file</span>
+        </div>
+      </div>
+    </footer>
+  </main>
+
+  <div class="toast" id="toast" role="status" aria-live="polite">Copied!</div>
+
+  <script>
+    const toast = document.getElementById('toast');
+
+    function showToast(message){
+      toast.textContent = message;
+      toast.classList.add('show');
+      window.clearTimeout(showToast._t);
+      showToast._t = window.setTimeout(() => toast.classList.remove('show'), 1200);
+    }
+
+    async function copyText(text){
+      try{
+        await navigator.clipboard.writeText(text);
+        showToast('Copied to clipboard');
+      }catch{
+        // Fallback
+        const ta = document.createElement('textarea');
+        ta.value = text;
+        ta.style.position = 'fixed';
+        ta.style.left = '-9999px';
+        document.body.appendChild(ta);
+        ta.focus();
+        ta.select();
+        const ok = document.execCommand('copy');
+        document.body.removeChild(ta);
+        showToast(ok ? 'Copied to clipboard' : 'Copy failed');
+      }
+    }
+
+    document.querySelectorAll('.copyBtn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const id = btn.getAttribute('data-copy');
+        const codeEl = document.getElementById(id);
+        if(!codeEl) return;
+        // Use textContent to keep exactly what user sees.
+        copyText(codeEl.textContent);
+      });
+    });
+
+    // Smooth scroll for anchor links
+    document.querySelectorAll('a[href^="#"]').forEach(a => {
+      a.addEventListener('click', (e) => {
+        const id = a.getAttribute('href');
+        const target = document.querySelector(id);
+        if(!target) return;
+        e.preventDefault();
+        target.scrollIntoView({behavior:'smooth', block:'start'});
+      });
+    });
+  </script>
+</body>
+</html>
+
